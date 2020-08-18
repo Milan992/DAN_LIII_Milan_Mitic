@@ -108,9 +108,31 @@ namespace WpfHotel
             }
         }
 
-        internal tblEmployee AddEmployee(tblEmployee employee)
+        internal void AddEmployee(tblEmployee employee, tblAccount account, string dateOfBirth, tblEngagement Engagement)
         {
-            throw new NotImplementedException();
+            using (HotelEntities1 context = new HotelEntities1())
+            {
+                DateTime date = DateTime.ParseExact(dateOfBirth, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+
+                tblAccount newAccount = new tblAccount();
+                newAccount.FullName = account.FullName;
+                newAccount.DateOfBirth = date;
+                newAccount.Email = account.Email;
+                newAccount.UserName = account.UserName;
+                newAccount.Pass = account.Pass;
+                context.tblAccounts.Add(newAccount);
+                context.SaveChanges();
+
+                tblEmployee newManager = new tblEmployee();
+                newManager.AccountID = newAccount.AccountID;
+                newManager.HotelFloor = employee.HotelFloor;
+                newManager.Gender = employee.Gender;
+                newManager.Cityzenship = employee.Cityzenship;
+                newManager.EngagementID = Engagement.EngagementID;
+                newManager.Salary = employee.Salary;
+                context.tblEmployees.Add(newManager);
+                context.SaveChanges();
+            }
         }
 
         internal bool IsEmployee(string userName, string password)
