@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HotelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAccount">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="UserName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Pass" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblApplication">
+          <Key>
+            <PropertyRef Name="ApplicationID" />
+          </Key>
+          <Property Name="ApplicationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationStatusID" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="Explanation" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="tblApplicationStatus">
+          <Key>
+            <PropertyRef Name="ApplicationStatusID" />
+          </Key>
+          <Property Name="ApplicationStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationStatusName" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblEmployee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="HotelFloor" Type="int" />
+          <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Cityzenship" Type="varchar" MaxLength="30" />
+          <Property Name="EngagementID" Type="int" Nullable="false" />
+          <Property Name="Salary" Type="int" />
+        </EntityType>
+        <EntityType Name="tblEngagement">
+          <Key>
+            <PropertyRef Name="EngagementID" />
+          </Key>
+          <Property Name="EngagementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EngagementName" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblManager">
+          <Key>
+            <PropertyRef Name="ManagerID" />
+          </Key>
+          <Property Name="ManagerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="HotelFloor" Type="int" />
+          <Property Name="Experience" Type="int" />
+          <Property Name="QualificationsLevel" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblApplic__Appli__5BE2A6F2">
+          <End Role="tblApplicationStatus" Type="Self.tblApplicationStatus" Multiplicity="1" />
+          <End Role="tblApplication" Type="Self.tblApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblApplicationStatus">
+              <PropertyRef Name="ApplicationStatusID" />
+            </Principal>
+            <Dependent Role="tblApplication">
+              <PropertyRef Name="ApplicationStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEmploy__Accou__5165187F">
+          <End Role="tblAccount" Type="Self.tblAccount" Multiplicity="1" />
+          <End Role="tblEmployee" Type="Self.tblEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAccount">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="tblEmployee">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEmploy__Engag__534D60F1">
+          <End Role="tblEngagement" Type="Self.tblEngagement" Multiplicity="1" />
+          <End Role="tblEmployee" Type="Self.tblEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEngagement">
+              <PropertyRef Name="EngagementID" />
+            </Principal>
+            <Dependent Role="tblEmployee">
+              <PropertyRef Name="EngagementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblManage__Accou__5629CD9C">
+          <End Role="tblAccount" Type="Self.tblAccount" Multiplicity="1" />
+          <End Role="tblManager" Type="Self.tblManager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAccount">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="tblManager">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelModelStoreContainer">
+          <EntitySet Name="tblAccount" EntityType="Self.tblAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblApplication" EntityType="Self.tblApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblApplicationStatus" EntityType="Self.tblApplicationStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEmployee" EntityType="Self.tblEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEngagement" EntityType="Self.tblEngagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblManager" EntityType="Self.tblManager" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblApplic__Appli__5BE2A6F2" Association="Self.FK__tblApplic__Appli__5BE2A6F2">
+            <End Role="tblApplicationStatus" EntitySet="tblApplicationStatus" />
+            <End Role="tblApplication" EntitySet="tblApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEmploy__Accou__5165187F" Association="Self.FK__tblEmploy__Accou__5165187F">
+            <End Role="tblAccount" EntitySet="tblAccount" />
+            <End Role="tblEmployee" EntitySet="tblEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEmploy__Engag__534D60F1" Association="Self.FK__tblEmploy__Engag__534D60F1">
+            <End Role="tblEngagement" EntitySet="tblEngagement" />
+            <End Role="tblEmployee" EntitySet="tblEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblManage__Accou__5629CD9C" Association="Self.FK__tblManage__Accou__5629CD9C">
+            <End Role="tblAccount" EntitySet="tblAccount" />
+            <End Role="tblManager" EntitySet="tblManager" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HotelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblAccount">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pass" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblEmployees" Relationship="Self.FK__tblEmploy__Accou__5165187F" FromRole="tblAccount" ToRole="tblEmployee" />
+          <NavigationProperty Name="tblManagers" Relationship="Self.FK__tblManage__Accou__5629CD9C" FromRole="tblAccount" ToRole="tblManager" />
+        </EntityType>
+        <EntityType Name="tblApplication">
+          <Key>
+            <PropertyRef Name="ApplicationID" />
+          </Key>
+          <Property Name="ApplicationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationStatusID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Explanation" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblApplicationStatu" Relationship="Self.FK__tblApplic__Appli__5BE2A6F2" FromRole="tblApplication" ToRole="tblApplicationStatus" />
+        </EntityType>
+        <EntityType Name="tblApplicationStatu">
+          <Key>
+            <PropertyRef Name="ApplicationStatusID" />
+          </Key>
+          <Property Name="ApplicationStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationStatusName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblApplications" Relationship="Self.FK__tblApplic__Appli__5BE2A6F2" FromRole="tblApplicationStatus" ToRole="tblApplication" />
+        </EntityType>
+        <EntityType Name="tblEmployee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="HotelFloor" Type="Int32" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cityzenship" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="EngagementID" Type="Int32" Nullable="false" />
+          <Property Name="Salary" Type="Int32" />
+          <NavigationProperty Name="tblAccount" Relationship="Self.FK__tblEmploy__Accou__5165187F" FromRole="tblEmployee" ToRole="tblAccount" />
+          <NavigationProperty Name="tblEngagement" Relationship="Self.FK__tblEmploy__Engag__534D60F1" FromRole="tblEmployee" ToRole="tblEngagement" />
+        </EntityType>
+        <EntityType Name="tblEngagement">
+          <Key>
+            <PropertyRef Name="EngagementID" />
+          </Key>
+          <Property Name="EngagementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EngagementName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblEmployees" Relationship="Self.FK__tblEmploy__Engag__534D60F1" FromRole="tblEngagement" ToRole="tblEmployee" />
+        </EntityType>
+        <EntityType Name="tblManager">
+          <Key>
+            <PropertyRef Name="ManagerID" />
+          </Key>
+          <Property Name="ManagerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="HotelFloor" Type="Int32" />
+          <Property Name="Experience" Type="Int32" />
+          <Property Name="QualificationsLevel" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblAccount" Relationship="Self.FK__tblManage__Accou__5629CD9C" FromRole="tblManager" ToRole="tblAccount" />
+        </EntityType>
+        <Association Name="FK__tblEmploy__Accou__5165187F">
+          <End Role="tblAccount" Type="Self.tblAccount" Multiplicity="1" />
+          <End Role="tblEmployee" Type="Self.tblEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAccount">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="tblEmployee">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblManage__Accou__5629CD9C">
+          <End Role="tblAccount" Type="Self.tblAccount" Multiplicity="1" />
+          <End Role="tblManager" Type="Self.tblManager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAccount">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="tblManager">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblApplic__Appli__5BE2A6F2">
+          <End Role="tblApplicationStatus" Type="Self.tblApplicationStatu" Multiplicity="1" />
+          <End Role="tblApplication" Type="Self.tblApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblApplicationStatus">
+              <PropertyRef Name="ApplicationStatusID" />
+            </Principal>
+            <Dependent Role="tblApplication">
+              <PropertyRef Name="ApplicationStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEmploy__Engag__534D60F1">
+          <End Role="tblEngagement" Type="Self.tblEngagement" Multiplicity="1" />
+          <End Role="tblEmployee" Type="Self.tblEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEngagement">
+              <PropertyRef Name="EngagementID" />
+            </Principal>
+            <Dependent Role="tblEmployee">
+              <PropertyRef Name="EngagementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAccounts" EntityType="Self.tblAccount" />
+          <EntitySet Name="tblApplications" EntityType="Self.tblApplication" />
+          <EntitySet Name="tblApplicationStatus" EntityType="Self.tblApplicationStatu" />
+          <EntitySet Name="tblEmployees" EntityType="Self.tblEmployee" />
+          <EntitySet Name="tblEngagements" EntityType="Self.tblEngagement" />
+          <EntitySet Name="tblManagers" EntityType="Self.tblManager" />
+          <AssociationSet Name="FK__tblEmploy__Accou__5165187F" Association="Self.FK__tblEmploy__Accou__5165187F">
+            <End Role="tblAccount" EntitySet="tblAccounts" />
+            <End Role="tblEmployee" EntitySet="tblEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblManage__Accou__5629CD9C" Association="Self.FK__tblManage__Accou__5629CD9C">
+            <End Role="tblAccount" EntitySet="tblAccounts" />
+            <End Role="tblManager" EntitySet="tblManagers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblApplic__Appli__5BE2A6F2" Association="Self.FK__tblApplic__Appli__5BE2A6F2">
+            <End Role="tblApplicationStatus" EntitySet="tblApplicationStatus" />
+            <End Role="tblApplication" EntitySet="tblApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEmploy__Engag__534D60F1" Association="Self.FK__tblEmploy__Engag__534D60F1">
+            <End Role="tblEngagement" EntitySet="tblEngagements" />
+            <End Role="tblEmployee" EntitySet="tblEmployees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HotelModelStoreContainer" CdmEntityContainer="HotelEntities1">
+          <EntitySetMapping Name="tblAccounts">
+            <EntityTypeMapping TypeName="HotelModel.tblAccount">
+              <MappingFragment StoreEntitySet="tblAccount">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblApplications">
+            <EntityTypeMapping TypeName="HotelModel.tblApplication">
+              <MappingFragment StoreEntitySet="tblApplication">
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+                <ScalarProperty Name="ApplicationStatusID" ColumnName="ApplicationStatusID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblApplicationStatus">
+            <EntityTypeMapping TypeName="HotelModel.tblApplicationStatu">
+              <MappingFragment StoreEntitySet="tblApplicationStatus">
+                <ScalarProperty Name="ApplicationStatusID" ColumnName="ApplicationStatusID" />
+                <ScalarProperty Name="ApplicationStatusName" ColumnName="ApplicationStatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEmployees">
+            <EntityTypeMapping TypeName="HotelModel.tblEmployee">
+              <MappingFragment StoreEntitySet="tblEmployee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="HotelFloor" ColumnName="HotelFloor" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Cityzenship" ColumnName="Cityzenship" />
+                <ScalarProperty Name="EngagementID" ColumnName="EngagementID" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEngagements">
+            <EntityTypeMapping TypeName="HotelModel.tblEngagement">
+              <MappingFragment StoreEntitySet="tblEngagement">
+                <ScalarProperty Name="EngagementID" ColumnName="EngagementID" />
+                <ScalarProperty Name="EngagementName" ColumnName="EngagementName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblManagers">
+            <EntityTypeMapping TypeName="HotelModel.tblManager">
+              <MappingFragment StoreEntitySet="tblManager">
+                <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="HotelFloor" ColumnName="HotelFloor" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="QualificationsLevel" ColumnName="QualificationsLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
