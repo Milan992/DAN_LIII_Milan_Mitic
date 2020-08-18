@@ -83,6 +83,18 @@ namespace WpfHotel.ViewModels
             }
         }
 
+        private tblEngagement engagement;
+
+        public tblEngagement Engagement
+        {
+            get { return engagement; }
+            set
+            {
+                engagement = value;
+                OnPropertyChanged("Engagement");
+            }
+        }
+
 
         #endregion
 
@@ -107,7 +119,7 @@ namespace WpfHotel.ViewModels
         {
             try
             {
-                tblEmployee newEmployee = service.AddEmployee(Employee);
+               service.AddEmployee(Employee, Account, DateOfBirth, Engagement);
                 MessageBox.Show("Employee saved.");
             }
             catch (Exception ex)
@@ -118,8 +130,8 @@ namespace WpfHotel.ViewModels
 
         private bool CanSaveExecute()
         {
-            if (Account.FullName != null && Account.DateOfBirth != null && Account.Email != null && Account.UserName != null && Account.Pass != null
-                 && Employee.HotelFloor != null && Employee.Gender != null && Employee.Cityzenship != null && employee.EngagementID > 0)
+            if (Account.FullName != null && DateOfBirth != null && Account.Email != null && Account.UserName != null && Account.Pass != null
+                 && Employee.HotelFloor != null && Employee.Gender != null && Employee.Cityzenship != null && Engagement != null)
             {
                 return true;
             }

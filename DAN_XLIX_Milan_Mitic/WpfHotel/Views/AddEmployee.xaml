@@ -61,7 +61,7 @@
                  Height="23"
                  Margin="160,43,0,0"
                  TextWrapping="Wrap"
-                 Text="{Binding Account.DateOfBirth, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}"
                  VerticalAlignment="Top"
                  Width="120" />
         <TextBox HorizontalAlignment="Left"
@@ -109,7 +109,7 @@
         <ComboBox HorizontalAlignment="Left"
                   DisplayMemberPath="EngagementName"
                   ItemsSource="{Binding EngagementsList, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Employee.Engagement, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Engagement, UpdateSourceTrigger=PropertyChanged}"
                   Margin="160,253,0,0"
                   VerticalAlignment="Top"
                   Width="120" />

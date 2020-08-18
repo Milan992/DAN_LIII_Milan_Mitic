@@ -121,7 +121,7 @@ namespace WpfHotel.ViewModels
 
         private bool CanSaveExecute()
         {
-            if (Account.FullName != null && Account.DateOfBirth != null && Account.Email != null && Account.UserName != null && Account.Pass != null
+            if (Account.FullName != null && DateOfBirth != null && Account.Email != null && Account.UserName != null && Account.Pass != null
                  && Manager.HotelFloor != null && Manager.Experience != null && Manager.QualificationsLevel != null)
             {
                 return true;
